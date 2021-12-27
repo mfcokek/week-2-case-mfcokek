@@ -16,15 +16,19 @@ function theme() {
 
 }
 
+function reloadPage() {
+    location.reload();
+}
+
 function takeName() {
     localStorage.setItem(name, document.getElementById("name").value);
 }
 
-function deleteItem(id) {
-    fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
+async function deleteItem(id) {
+    await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
         method: 'DELETE',
     })
-    const myTimeout = setTimeout(reloadPage, 500);
+    reloadPage();
 }
 
 function updateItem(id) {
@@ -65,16 +69,16 @@ async function completeItem(id) {
     }
 }
 
-function reloadPage() {
-    location.reload();
-}
 
-function addItem() {
+
+async function addItem() {
     value = document.getElementById("input-todo").value
+
     if (value.length < 3) {
         alert("Bir todo en az 3 haneli olmak zorunda");
     } else {
-        fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/', {
+        document.getElementById("input-todo-btn").innerHTML = `<div class="spinner-border text-success" role="status"></div>`
+        await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -83,11 +87,9 @@ function addItem() {
                 content: value
             })
         })
-        document.getElementById("input-todo-btn").innerHTML = `<div class="spinner-border text-success" role="status"></div>`
+        reloadPage();
 
-        const myTimeout = setTimeout(reloadPage, 1000);
     }
-
 }
 
 window.addEventListener('load', async function() {
