@@ -107,8 +107,8 @@ async function load() {
          style = "margin-top: 20px;"
          >
         <input type="text" class="item-text" value="${item.content}" id="${item.id}">
-        <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">X</button>
-        <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">✓</button>
+        <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">Sil</button>
+        <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">Güncelle</button>
     </li>`
     });
     todoItems.innerHTML = html;
