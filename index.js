@@ -1,7 +1,7 @@
 var name;
 document.getElementById("name-title").innerHTML = localStorage.getItem(name);
 var dark
-
+let html = ""
 
 function theme() {
     if (localStorage.getItem(dark) == "false") {
@@ -16,10 +16,6 @@ function theme() {
 
 }
 
-function reloadPage() {
-    location.reload();
-}
-
 function takeName() {
     localStorage.setItem(name, document.getElementById("name").value);
 }
@@ -28,7 +24,7 @@ async function deleteItem(id) {
     await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
         method: 'DELETE',
     })
-    reloadPage();
+    load()
 }
 
 function updateItem(id) {
@@ -70,7 +66,6 @@ async function completeItem(id) {
 }
 
 
-
 async function addItem() {
     value = document.getElementById("input-todo").value
 
@@ -87,9 +82,30 @@ async function addItem() {
                 content: value
             })
         })
-        reloadPage();
-
+        document.getElementById("input-todo-btn").innerHTML = `Ekle`
+        document.getElementById("input-todo").value = ""
+        load()
     }
+}
+
+async function load() {
+    const res = await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/');
+    const data = await res.json();
+    const todoItems = document.querySelector('#todo-items');
+    html = ""
+    data.forEach(item => {
+        html = html + `
+    <li class=" item list-group-item">
+        <input class="form-check-input me-1" type="checkbox"
+         onchange="completeItem(${item.id})" ${item.isCompleted && "checked"}
+         style = "margin-top: 20px;"
+         >
+        <input type="text" class="item-text" value="${item.content}" id="${item.id}">
+        <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">X</button>
+        <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">✓</button>
+    </li>`
+    });
+    todoItems.innerHTML = html;
 }
 
 window.addEventListener('load', async function() {
@@ -100,23 +116,5 @@ window.addEventListener('load', async function() {
         document.body.style.backgroundColor = "#30475E"
         document.getElementById("name-title").style.color = "white"
     }
-    
-    const res = await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/');
-    const data = await res.json();
-    const todoItems = document.querySelector('#todo-items');
-    let html = ""
-
-    data.forEach(item => {
-        html = html + `
-        <li class=" item list-group-item">
-            <input class="form-check-input me-1" type="checkbox"
-             onchange="completeItem(${item.id})" ${item.isCompleted && "checked"}
-             style = "margin-top: 20px;"
-             >
-            <input type="text" class="item-text" value="${item.content}" id="${item.id}">
-            <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">Sil</button>
-            <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">Güncelle</button>
-        </li>`
-    });
-    todoItems.innerHTML = html;
+    load()
 })
