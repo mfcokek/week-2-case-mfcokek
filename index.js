@@ -1,10 +1,9 @@
 var name;
 document.getElementById("name-title").innerHTML = localStorage.getItem(name);
 var dark
-localStorage.setItem(dark, false)
+
 
 function theme() {
-    console.log(localStorage.getItem(dark));
     if (localStorage.getItem(dark) == "false") {
         document.body.style.backgroundColor = "#A3E4DB"
         document.getElementById("name-title").style.color = "black"
@@ -72,7 +71,6 @@ function reloadPage() {
 
 function addItem() {
     value = document.getElementById("input-todo").value
-    console.log(typeof(value));
     if (value.length < 3) {
         alert("Bir todo en az 3 haneli olmak zorunda");
     } else {
@@ -111,5 +109,15 @@ window.addEventListener('load', async function() {
         </li>`
     });
     todoItems.innerHTML = html;
+
+
+    if (localStorage.getItem(dark) == "true") {
+        document.body.style.backgroundColor = "#A3E4DB"
+        document.getElementById("name-title").style.color = "black"
+    } else {
+        document.body.style.backgroundColor = "#30475E"
+        document.getElementById("name-title").style.color = "white"
+    }
+
 
 })
