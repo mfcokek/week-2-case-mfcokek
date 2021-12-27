@@ -93,6 +93,14 @@ async function addItem() {
 }
 
 window.addEventListener('load', async function() {
+    if (localStorage.getItem(dark) == "true") {
+        document.body.style.backgroundColor = "#A3E4DB"
+        document.getElementById("name-title").style.color = "black"
+    } else {
+        document.body.style.backgroundColor = "#30475E"
+        document.getElementById("name-title").style.color = "white"
+    }
+    
     const res = await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/');
     const data = await res.json();
     const todoItems = document.querySelector('#todo-items');
@@ -111,15 +119,4 @@ window.addEventListener('load', async function() {
         </li>`
     });
     todoItems.innerHTML = html;
-
-
-    if (localStorage.getItem(dark) == "true") {
-        document.body.style.backgroundColor = "#A3E4DB"
-        document.getElementById("name-title").style.color = "black"
-    } else {
-        document.body.style.backgroundColor = "#30475E"
-        document.getElementById("name-title").style.color = "white"
-    }
-
-
 })
