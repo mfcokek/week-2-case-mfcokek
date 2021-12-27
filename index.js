@@ -1,8 +1,10 @@
 var name;
+//index.html den gelen takename'den gelen değeri name-title'a yazıyoruz
 document.getElementById("name-title").innerHTML = localStorage.getItem(name);
 var dark
 let html = ""
 
+//aşağıda tema buttonuna tıklandında localstorage da tutulan değer değiştirilir veya tema ayarlanır
 function theme() {
     if (localStorage.getItem(dark) == "false") {
         document.body.style.backgroundColor = "#A3E4DB"
@@ -15,18 +17,18 @@ function theme() {
     }
 
 }
-
+//ilk sayfada girilen değer local storage'a atanır
 function takeName() {
     localStorage.setItem(name, document.getElementById("name").value);
 }
-
+//girilen değer id üzerinden silinir ve liste yeniden yüklenir
 async function deleteItem(id) {
     await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
         method: 'DELETE',
     })
     load()
 }
-
+//gelen id üzerinden içeriğin value'si güncellenir
 function updateItem(id) {
     fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
         method: 'PUT',
@@ -38,7 +40,7 @@ function updateItem(id) {
         })
     })
 }
-
+//ilk önce önceden true mu false mu olduğu sorgulanur ona göre değiştirilir
 async function completeItem(id) {
     const res = await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id);
     const data = await res.json();
@@ -67,11 +69,14 @@ async function completeItem(id) {
 
 
 async function addItem() {
+    //input içerisindeki değer alınır
     value = document.getElementById("input-todo").value
-
+    
+    //hane kontrolü
     if (value.length < 3) {
         alert("Bir todo en az 3 haneli olmak zorunda");
     } else {
+        //sorgu sürecinde ekle yerine spinner gelir
         document.getElementById("input-todo-btn").innerHTML = `<div class="spinner-border text-success" role="status"></div>`
         await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/', {
             method: 'POST',
@@ -82,12 +87,13 @@ async function addItem() {
                 content: value
             })
         })
+        //işlem tamamlandıktan sonra spinner yerine yeniden Ekle yazısı gelir ve inputun içerisi boşaltılır
         document.getElementById("input-todo-btn").innerHTML = `Ekle`
         document.getElementById("input-todo").value = ""
         load()
     }
 }
-
+//liste içeriği burada oluşturulur gelen bütün veriler foreach içinde döner ve kullanılacak işlemler için id tag'lerine id atanır
 async function load() {
     const res = await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/');
     const data = await res.json();
@@ -107,7 +113,7 @@ async function load() {
     });
     todoItems.innerHTML = html;
 }
-
+//sayfa ilk yüklenirken burası çalışır gelen tema değişkenine göre tema ayarlanır ve liste yüklenir
 window.addEventListener('load', async function() {
     if (localStorage.getItem(dark) == "true") {
         document.body.style.backgroundColor = "#A3E4DB"
