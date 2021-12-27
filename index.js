@@ -101,7 +101,10 @@ window.addEventListener('load', async function() {
     data.forEach(item => {
         html = html + `
         <li class=" item list-group-item">
-            <input class="form-check-input me-1" type="checkbox" onchange="completeItem(${item.id})" ${item.isCompleted && "checked"}>
+            <input class="form-check-input me-1" type="checkbox"
+             onchange="completeItem(${item.id})" ${item.isCompleted && "checked"}
+             style = "margin-top: 20px;"
+             >
             <input type="text" class="item-text" value="${item.content}" id="${item.id}">
             <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">X</button>
             <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">✓</button>
