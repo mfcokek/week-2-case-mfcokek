@@ -56,17 +56,24 @@ function reloadPage() {
 
 function addItem() {
     value = document.getElementById("input-todo").value
-
-    fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            content: value
+    console.log(typeof(value));
+    if (value.length < 3) {
+        alert("Bir todo en az 3 haneli olmak zorunda");
+    } else {
+        fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: value
+            })
         })
-    })
-    const myTimeout = setTimeout(reloadPage, 500);
+        document.getElementById("input-todo-btn").innerHTML = `<div class="spinner-border text-success" role="status"></div>`
+
+        const myTimeout = setTimeout(reloadPage, 1000);
+    }
+
 }
 
 window.addEventListener('load', async function() {
@@ -87,25 +94,3 @@ window.addEventListener('load', async function() {
     todoItems.innerHTML = html;
 
 })
-
-//const addButton = document.querySelector("#input-todo-btn")
-
-/*addButton.addEventListener("click", async function() {
-    var addInput = document.querySelector("#input-todo")
-
-
-    var value = addInput.value
-
-    fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            content: value,
-            isCompleted: false
-        })
-    })
-
-
-})*/
