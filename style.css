@@ -1,0 +1,38 @@
+.form-label {
+    color: #F5F5F5;
+}
+
+.center {
+    padding-top: 20px;
+    width: 50%;
+    margin: auto;
+}
+
+.list-group {
+    margin-top: 10px;
+}
+
+.delete-button,
+.update-button {
+    float: right;
+    margin-right: 5px;
+}
+
+.item-text {
+    width: 75%;
+    border: 0;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.link:hover {
+    color: white;
+}
+
+h1 {
+    color: white;
+}
