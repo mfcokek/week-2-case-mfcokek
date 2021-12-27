@@ -1,5 +1,21 @@
 var name;
 document.getElementById("name-title").innerHTML = localStorage.getItem(name);
+var dark
+localStorage.setItem(dark, false)
+
+function theme() {
+    console.log(localStorage.getItem(dark));
+    if (localStorage.getItem(dark) == "false") {
+        document.body.style.backgroundColor = "#A3E4DB"
+        document.getElementById("name-title").style.color = "black"
+        localStorage.setItem(dark, true)
+    } else {
+        document.body.style.backgroundColor = "#30475E"
+        document.getElementById("name-title").style.color = "white"
+        localStorage.setItem(dark, false)
+    }
+
+}
 
 function takeName() {
     localStorage.setItem(name, document.getElementById("name").value);
@@ -80,16 +96,16 @@ window.addEventListener('load', async function() {
     const res = await fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/');
     const data = await res.json();
     const todoItems = document.querySelector('#todo-items');
-    let html = []
+    let html = ""
 
     data.forEach(item => {
-        html.push(`
+        html = html + `
         <li class=" item list-group-item">
             <input class="form-check-input me-1" type="checkbox" onchange="completeItem(${item.id})" ${item.isCompleted && "checked"}>
             <input type="text" class="item-text" value="${item.content}" id="${item.id}">
             <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">X</button>
             <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">✓</button>
-        </li>`)
+        </li>`
     });
     todoItems.innerHTML = html;
 
