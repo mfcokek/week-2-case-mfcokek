@@ -106,9 +106,8 @@ async function load() {
          onchange="completeItem(${item.id})" ${item.isCompleted && "checked"}
          style = "margin-top: 20px;"
          >
-        <input type="text" class="item-text" value="${item.content}" id="${item.id}">
+        <input type="text" class="item-text" onchange="updateItem(${item.id})" value="${item.content}" id="${item.id}">
         <button class="delete-button btn btn-dark btn-sm" onclick="deleteItem(${item.id})">Sil</button>
-        <button class="update-button btn btn-dark btn-sm" onclick="updateItem(${item.id})">Güncelle</button>
     </li>`
     });
     todoItems.innerHTML = html;
