@@ -30,15 +30,19 @@ async function deleteItem(id) {
 }
 //gelen id üzerinden içeriğin value'si güncellenir
 function updateItem(id) {
-    fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            content: document.getElementById(id).value,
+    if (document.getElementById(id).value.length > 2) {
+        fetch('https://61c404f4f1af4a0017d99206.mockapi.io/todos/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: document.getElementById(id).value,
+            })
         })
-    })
+    } else {
+        alert("Bir todo en az 3 haneli olmak zorunda");
+    }
 }
 //ilk önce önceden true mu false mu olduğu sorgulanur ona göre değiştirilir
 async function completeItem(id) {
