@@ -1,7 +1,7 @@
 # Ödev 2 - ToDo App
 
   - MockApi kullanılmış
-  - Todo CRUD işlmeleri
+  - Todo CRUD işlemleri
   - Karanlık tema
 
 
